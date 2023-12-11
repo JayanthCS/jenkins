@@ -25,7 +25,7 @@ pipeline{
           
 
             stage('TESTING1'){
-              agent{label 'Built-In-Node'}
+              agent{label 'label1'}
             steps{
                echo "echo this is TESTING1 stage"
                sh 'sleep 5'
