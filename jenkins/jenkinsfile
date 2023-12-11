@@ -18,6 +18,7 @@ pipeline{
                 sh 'sleep 5'
              }
         }
+          stage(TESTING){
          stage('TESTING1'){
             steps{
                echo "echo this is TESTING1 stage"
@@ -32,5 +33,6 @@ pipeline{
                 '''
              }
         }
+          }
     }
 }
