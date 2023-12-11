@@ -1,6 +1,7 @@
 pipeline{
     agent none
     stages{
+      stage('TESTING'){
         stage('BUILD'){
              steps{
                sh '''
@@ -18,7 +19,7 @@ pipeline{
                 sh 'sleep 5'
              }
         }
-          stage('TESTING'){
+          
 
             stage('TESTING1'){
               agent{label 'master'}
