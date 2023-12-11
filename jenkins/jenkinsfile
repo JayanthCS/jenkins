@@ -19,13 +19,16 @@ pipeline{
              }
         }
           stage('TESTING'){
-         stage('TESTING1'){
+
+            stage('TESTING1'){
+              agent{label 'master'}
             steps{
                echo "echo this is TESTING1 stage"
                sh 'sleep 5'
              }
         }
          stage('TESTING2'){
+          agent{label 'slave1'}
             steps{
                 sh '''
                 echo "this is TESTING2 stage"
