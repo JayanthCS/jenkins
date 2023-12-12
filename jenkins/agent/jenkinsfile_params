@@ -1,0 +1,54 @@
+pipeline{
+    agent none
+   
+    parameters{
+    string(defaultValue: 'main', description: 'this is test parameter', name: 'BRANCH')
+    string(defaultValue: 'https://github.com/JayanthCS/jenkins.git', description: 'this is test parameter', name: 'GIT_REPO')
+    }
+    stages{
+      stage('TESTING'){
+        parallel{
+        stage('BUILD'){
+          agent any
+              steps{
+                git branch: ${params.BRANCH}, url: ${params.GIT_REPO}
+                    sh '''
+                     #!/bin/bash
+                     pwd
+                     ls
+                     echo "this is BUILD stage"
+                     sleep 5
+                    '''
+              }
+        }
+         stage('DEPLOY'){
+          agent {label 'slave1'}
+            steps{
+                echo "this is DEPLOY stage"
+                sh 'sleep 5'
+                echo "${params.BRANCH}"
+                echo "${params.GIT_REPO}"
+             }
+        }
+          
+
+            stage('TESTING1'){
+              agent{label 'label1'}
+             steps{
+               echo "echo this is TESTING1 stage"
+               sh 'sleep 5'
+              }
+            }
+          stage('TESTING2'){
+           agent{label 'slave1'}
+            steps{
+                sh '''
+                echo "this is TESTING2 stage"
+                sleep 5
+                '''
+              }
+          } 
+        }
+      }
+    }
+}
