@@ -5,18 +5,20 @@ pipeline{
                 steps{
 
                   sh '''
-                  #!/bin/bash
-                  pwd
-                  ls
-                  echo "this is BUILD stage"
-                  sleep 5
-                  exit 1
+                     #!/bin/bash
+                     pwd
+                     ls
+                     echo "this is BUILD stage"
+                     sleep 5
+                     exit 1
                   '''
                 }
           }
          stage('DEPLOY'){
+          steps{
                echo "this is DEPLOY stage"
                sh 'sleep 5'
+          }
           }
     }
 
