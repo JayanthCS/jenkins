@@ -1,69 +1,32 @@
 pipeline{
     agent none
-   
-    parameters{
-    string(defaultValue: 'main', description: 'Enter the branch to build', name: 'BRANCH')
-    string(defaultValue: 'https://github.com/JayanthCS/jenkins.git', description: 'Enter the repo url', name: 'GIT_REPO')
-    choice(name:'STAGE', choices:['build','deploy'],description:'Stages to build')
-    }
-    stages{
-      stage('TESTING'){
-        parallel{
-        stage('BUILD'){
-          agent any
-              steps{
-                script{
-                    if(params.STAGE=='build'){
-                     git branch: params.BRANCH, url: params.GIT_REPO
-                     sh '''
-                     #!/bin/bash
-                     pwd
-                     ls
-                     echo "this is BUILD stage"
-                     sleep 5
-                     '''
-                    }
-                     else{
-                         echo "Skipping build stage......"
-                     }
-                }    
-              }
-        }
+    stages{ 
+         stage('BUILD'){
+                steps{
+
+                  sh '''
+                  #!/bin/bash
+                  pwd
+                  ls
+                  echo "this is BUILD stage"
+                  sleep 5
+                  exit 1
+                  '''
+                }
+          }
          stage('DEPLOY'){
-          agent {label 'slave1'}
-            steps{
-              script{
-                 if(params.STAGE=='deploy'){
-                   echo "this is DEPLOY stage"
-                   sh 'sleep 5'
-                   echo "${params.BRANCH}"
-                   echo "${params.GIT_REPO}"
-                 }
-                 else{
-                  echo "Skipping deploy stage......."
-                 }
-              }      
-             }
-        }
+               echo "this is DEPLOY stage"
+               sh 'sleep 5'
+          }
+    }
+
+}
+                   
+             
+        
           
 
-            stage('TESTING1'){
-              agent{label 'label1'}
-             steps{
-               echo "echo this is TESTING1 stage"
-               sh 'sleep 5'
-              }
-            }
-          stage('TESTING2'){
-           agent{label 'slave1'}
-            steps{
-                sh '''
-                echo "this is TESTING2 stage"
-                sleep 5
-                '''
-              }
-          } 
-        }
-      }
-    }
-}
+            
+        
+      
+    
