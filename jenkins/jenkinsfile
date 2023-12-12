@@ -1,8 +1,9 @@
 pipeline{
     agent none
-    environment{
-      BRANCH='main'
-      GIT_REPO='https://github.com/JayanthCS/jenkins.git'
+   
+    parameters{
+    string(defaultValue: 'main', description: 'this is test parameter', name: 'BRANCH')
+    string(defaultValue: 'https://github.com/JayanthCS/jenkins.git', description: 'this is test parameter', name: 'GIT_REPO')
     }
     stages{
       stage('TESTING'){
@@ -10,7 +11,7 @@ pipeline{
         stage('BUILD'){
           agent any
               steps{
-                git branch: env.BRANCH, url: env.GIT_REPO
+                git branch: ${params.BRANCH}, url: ${params.GIT_REPO}
                     sh '''
                      #!/bin/bash
                      pwd
@@ -25,6 +26,8 @@ pipeline{
             steps{
                 echo "this is DEPLOY stage"
                 sh 'sleep 5'
+                echo "${params.BRANCH}"
+                echo "${params.GIT_REPO}"
              }
         }
           
