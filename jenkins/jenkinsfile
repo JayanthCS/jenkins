@@ -13,7 +13,7 @@ pipeline{
           agent any
               steps{
                 script{
-                    if(parms.STAGE=='build'){
+                    if(params.STAGE=='build'){
                      git branch: params.BRANCH, url: params.GIT_REPO
                      sh '''
                      #!/bin/bash
@@ -33,7 +33,7 @@ pipeline{
           agent {label 'slave1'}
             steps{
               script{
-                 if(parms.STAGE=='deploy'){
+                 if(params.STAGE=='deploy'){
                    echo "this is DEPLOY stage"
                    sh 'sleep 5'
                    echo "${params.BRANCH}"
