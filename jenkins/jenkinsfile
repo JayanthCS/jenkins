@@ -2,8 +2,8 @@ pipeline{
     agent none
    
     parameters{
-    string(defaultValue: 'main', description: 'this is test parameter', name: 'BRANCH')
-    string(defaultValue: 'https://github.com/JayanthCS/jenkins.git', description: 'this is test parameter', name: 'GIT_REPO')
+    string(defaultValue: 'main', description: 'Enter the branch to build', name: 'BRANCH')
+    string(defaultValue: 'https://github.com/JayanthCS/jenkins.git', description: 'Enter the repo url', name: 'GIT_REPO')
     }
     stages{
       stage('TESTING'){
